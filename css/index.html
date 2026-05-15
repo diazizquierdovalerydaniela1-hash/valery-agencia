@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Val travel</title>
+     <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <img src="img/valery.png">
+<script>
+
+    let nombreTurista;
+    let letraServicio;
+    let nombrePaquete = "";
+    let costoPaquete = 0;
+    let agenteViaje = "";
+    let continuarRegistro = "si";
+
+    let totalReservas = 0;
+    let gananciasEmpresa = 0;
+    let clientesRegistrados = 0;
+
+    let contadorAvion = 0;
+    let contadorHotel = 0;
+    let contadorTransporte = 0;
+    let contadorExcursion = 0;
+
+    let reservasMateo = 0;
+    let reservasJuliana = 0;
+    let reservasNicolas = 0;
+    let reservasSara = 0;
+
+    document.write("<div class='contenedor'>");
+    document.write("<h1>val travel</h1>");
+    document.write("<h2>Centro de Reservas Turísticas</h2>");
+
+    do {
+
+        nombreTurista = prompt("Ingrese el nombre del turista:");
+        clientesRegistrados++;
+
+        let agregarServicio = "si";
+        let cuentaCliente = 0;
+
+        document.write("<div class='venta'>");
+        document.write("<h3>Turista: " + nombreTurista + "</h3>");
+
+        do {
+
+            letraServicio = prompt(
+                "Seleccione un paquete:\n" +
+                "A = Viaje en Avión\n" +
+                "B = Reserva de Hotel\n" +
+                "C = Transporte Privado\n" +
+                "D = Excursión Turística"
+            );
+
+            switch ((letraServicio || "").toUpperCase()) {
+
+                case "A":
+                    nombrePaquete = "Viaje en Avión";
+                    costoPaquete = 900000;
+                    agenteViaje = "Mateo";
+                    reservasMateo++;
+                    contadorAvion++;
+                    break;
+
+                case "B":
+                    nombrePaquete = "Reserva de Hotel";
+                    costoPaquete = 650000;
+                    agenteViaje = "Juliana";
+                    reservasJuliana++;
+                    contadorHotel++;
+                    break;
+
+                case "C":
+                    nombrePaquete = "Transporte Privado";
+                    costoPaquete = 280000;
+                    agenteViaje = "Nicolás";
+                    reservasNicolas++;
+                    contadorTransporte++;
+                    break;
+
+                case "D":
+                    nombrePaquete = "Excursión Turística";
+                    costoPaquete = 200000;
+                    agenteViaje = "Sara";
+                    reservasSara++;
+                    contadorExcursion++;
+                    break;
+
+                default:
+                    nombrePaquete = "Servicio incorrecto";
+                    costoPaquete = 0;
+                    agenteViaje = "No disponible";
+            }
+
+
+            if (costoPaquete > 0) {
+                totalReservas++;
+                gananciasEmpresa += costoPaquete;
+                cuentaCliente += costoPaquete;
+            }
+
+            document.write("<hr>");
+            document.write("Paquete: " + nombrePaquete + "<br>");
+            document.write("Consultor: " + agenteViaje + "<br>");
+            document.write("Precio: $" + costoPaquete + "<br>");
+
+            agregarServicio = prompt(
+                "¿Desea añadir otro paquete? (si/no)"
+            ).toLowerCase();
+
+        } while (agregarServicio == "si");
+
+        document.write(
+            "<strong>Total del cliente:</strong> $" +
+            cuentaCliente + "<br>"
+        );
+
+        document.write("</div>");
+
+        continuarRegistro = prompt(
+            "¿Desea registrar otro turista? (si/no)"
+        ).toLowerCase();
+
+    } while (continuarRegistro == "si");
+
+    let paquetePopular = "Viaje en Avión";
+
+    if (
+        contadorHotel > contadorAvion &&
+        contadorHotel > contadorTransporte &&
+        contadorHotel > contadorExcursion
+    ) {
+        paquetePopular = "Reserva de Hotel";
+    }
+
+    if (
+        contadorTransporte > contadorAvion &&
+        contadorTransporte > contadorHotel &&
+        contadorTransporte > contadorExcursion
+    ) {
+        paquetePopular = "Transporte Privado";
+    }
+
+    if (
+        contadorExcursion > contadorAvion &&
+        contadorExcursion > contadorHotel &&
+        contadorExcursion > contadorTransporte
+    ) {
+        paquetePopular = "Excursión Turística";
+    }
+
+    let asesorPrincipal = "Mateo";
+
+    if (
+        reservasJuliana > reservasMateo &&
+        reservasJuliana > reservasNicolas &&
+        reservasJuliana > reservasSara
+    ) {
+        asesorPrincipal = "Juliana";
+    }
+
+    if (
+        reservasNicolas > reservasMateo &&
+        reservasNicolas > reservasJuliana &&
+        reservasNicolas > reservasSara
+    ) {
+        asesorPrincipal = "Nicolás";
+    }
+
+    if (
+        reservasSara > reservasMateo &&
+        reservasSara > reservasJuliana &&
+        reservasSara > reservasNicolas
+    ) {
+        asesorPrincipal = "Sara";
+    }
+
+    let mensajeFinal = "";
+    let tipoColor = "";
+
+    if (totalReservas < 3) {
+        mensajeFinal = "Rendimiento bajo";
+        tipoColor = "bajo";
+    }
+    else if (totalReservas >= 3 && totalReservas <= 5) {
+        mensajeFinal = "Rendimiento medio";
+        tipoColor = "aceptable";
+    }
+    else {
+        mensajeFinal = "Rendimiento sobresaliente";
+        tipoColor = "excelente";
+    }
+
+    document.write("<hr>");
+    document.write("<h2>Reporte General</h2>");
+    document.write("Clientes registrados: " + clientesRegistrados + "<br>");
+    document.write("Servicios reservados: " + totalReservas + "<br>");
+    document.write("Ganancias obtenidas: $" + gananciasEmpresa + "<br>");
+    document.write("Paquete más solicitado: " + paquetePopular + "<br>");
+    document.write("<strong>Consultor destacado:</strong> " + asesorPrincipal + "<br>");
+    document.write("Ventas Mateo: " + reservasMateo + "<br>");
+    document.write("Ventas Juliana: " + reservasJuliana + "<br>");
+    document.write("Ventas Nicolás: " + reservasNicolas + "<br>");
+    document.write("Ventas Sara: " + reservasSara + "<br>");
+
+    document.write(
+        "Estado del servicio: " +
+        "<span class='" + tipoColor + "'>" +
+        mensajeFinal +
+        "</span>"
+    );
+
+    document.write("</div>");
+
+</script>
+</body>
+</html>
